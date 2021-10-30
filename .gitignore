@@ -41,3 +41,6 @@ yarn-debug.log*
 
 # vendor
 vendor/bundle
+
+# editor
+tags
