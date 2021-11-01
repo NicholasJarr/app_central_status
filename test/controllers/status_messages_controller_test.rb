@@ -11,7 +11,6 @@ class StatusMessagesControllerTest < ActionDispatch::IntegrationTest
       assert_select "i.#{statuses.first.status}"
       assert_select 'h3', statuses.first.message
       assert_select 'span', statuses.first.created_at.strftime('%Y/%m/%d - %H:%M:%S')
-      assert_select 'a[href=?]', new_status_message_path, 'Update status'
     end
 
     assert_select 'section#recent_status' do
@@ -39,7 +38,6 @@ class StatusMessagesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'section#no_status' do
       assert_select 'i.no-status'
       assert_select 'h3'
-      assert_select 'a[href=?]', new_status_message_path, 'Update status'
     end
   end
 

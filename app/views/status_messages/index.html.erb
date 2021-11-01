@@ -7,7 +7,6 @@
       <%= @statuses.first.message  %>
     </h3>
     <span class="fw-lighter"><%= @statuses.first.created_at.strftime('%Y/%m/%d - %H:%M:%S')  %></span>
-    <%= link_to "Update status", new_status_message_path %>
   </section>
 
   <section id="recent_status" class="mt-3">
@@ -28,6 +27,5 @@
       <i class="no-status bi bi-exclamation-triangle-fill"></i>
       No status available yet!
     </h3>
-    <%= link_to "Update status", new_status_message_path %>
   </section>
 <% end %>
