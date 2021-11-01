@@ -19,9 +19,11 @@
     </ul>
   </section>
 <% else %>
-  <section id="no_status">
-    <img alt="no_status_image" />
-    <p>No status available yet</p>
+  <section id="no_status" class="d-flex flex-column align-items-center">
+    <h3 class="text-warning">
+      <i class="no-status bi bi-exclamation-triangle-fill"></i>
+      No status available yet!
+    </h3>
     <%= link_to "Update status", new_status_message_path %>
   </section>
 <% end %>
