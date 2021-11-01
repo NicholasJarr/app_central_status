@@ -1,0 +1,10 @@
+  <% if @status.errors.any? %>
+    <div id="error_explanation">
+      <span>The form contains <%= pluralize @status.errors.count, "error" %>.</span>
+      <ul>
+        <% @status.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>

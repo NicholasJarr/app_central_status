@@ -42,4 +42,39 @@ class StatusMessagesControllerTest < ActionDispatch::IntegrationTest
       assert_select 'a[href=?]', new_status_message_path, 'Update status'
     end
   end
+
+  test 'new page should show form with latest status and message' do
+    get new_status_message_path
+
+    assert_response :success
+
+    last_status = StatusMessage.recent.first
+    assert_select 'form[action=?]', status_messages_path do
+      assert_select 'label[for=status_message_message]'
+      assert_select 'input[name="status_message[message]"]', value: last_status.message
+      assert_select 'select[name="status_message[status]"]' do
+        assert_select 'option[value=up]', selected: last_status.status == :up
+        assert_select 'option[value=down]', selected: last_status.status == :down
+      end
+      assert_select 'button[type=submit]'
+    end
+  end
+
+  test 'new page should empty show form with up status and no message, if there is no recent status' do
+    StatusMessage.delete_all
+
+    get new_status_message_path
+
+    assert_response :success
+
+    assert_select 'form[action=?]', status_messages_path do
+      assert_select 'label[for=status_message_message]'
+      assert_select 'input[name="status_message[message]"]', value: ''
+      assert_select 'select[name="status_message[status]"]' do
+        assert_select 'option[value=up]', selected: true
+        assert_select 'option[value=down]', selected: false
+      end
+      assert_select 'button[type=submit]'
+    end
+  end
 end

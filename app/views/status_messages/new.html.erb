@@ -1,1 +1,7 @@
-<h1>new status message</h1>
+<%= form_with model: @status, local: true do |f| %>
+  <%= render 'error_messages' %>
+  <%= f.label :message %>
+  <%= f.text_field :message %>
+  <%= f.select :status, StatusMessage.statuses.keys %>
+  <%= f.button :submit %>
+<% end %>
