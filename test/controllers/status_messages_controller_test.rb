@@ -8,9 +8,9 @@ class StatusMessagesControllerTest < ActionDispatch::IntegrationTest
 
     statuses = StatusMessage.recent
     assert_select 'section#last_status' do
-      assert_select 'img'
-      assert_select 'p', statuses.first.message
-      assert_select 'sub', statuses.first.created_at.strftime('%Y/%m/%d - %H/%M/%S')
+      assert_select "i.#{statuses.first.status}"
+      assert_select 'h3', statuses.first.message
+      assert_select 'span', statuses.first.created_at.strftime('%Y/%m/%d - %H:%M:%S')
       assert_select 'a[href=?]', new_status_message_path, 'Update status'
     end
 
@@ -19,7 +19,7 @@ class StatusMessagesControllerTest < ActionDispatch::IntegrationTest
         statuses[1..].each do |s|
           assert_select "li##{s.id}" do
             assert_select 'span', s.message
-            assert_select 'sub', s.created_at.strftime('%Y/%m/%d - %H:%M:%S')
+            assert_select 'span', s.created_at.strftime('%Y/%m/%d - %H:%M:%S')
           end
         end
       end
@@ -52,6 +52,7 @@ class StatusMessagesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form[action=?]', status_messages_path do
       assert_select 'label[for=status_message_message]'
       assert_select 'input[name="status_message[message]"]', value: last_status.message
+      assert_select 'label[for=status_message_status]'
       assert_select 'select[name="status_message[status]"]' do
         assert_select 'option[value=up]', selected: last_status.status == :up
         assert_select 'option[value=down]', selected: last_status.status == :down
@@ -70,6 +71,7 @@ class StatusMessagesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'form[action=?]', status_messages_path do
       assert_select 'label[for=status_message_message]'
       assert_select 'input[name="status_message[message]"]', value: ''
+      assert_select 'label[for=status_message_status]'
       assert_select 'select[name="status_message[status]"]' do
         assert_select 'option[value=up]', selected: true
         assert_select 'option[value=down]', selected: false

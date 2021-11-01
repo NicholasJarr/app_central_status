@@ -21,11 +21,11 @@ class StatusMessageCreationTest < ActionDispatch::IntegrationTest
     assert flash[:success]
 
     assert_select 'section#last_status' do
-      assert_select 'p', 'test'
+      assert_select 'h3', 'test'
     end
   end
 
-  test 'new page should not a status if the params is invalid, and rerender the form' do
+  test 'new page should not create a status if the message is invalid' do
     get new_status_message_path
     assert_response :success
 
@@ -41,12 +41,8 @@ class StatusMessageCreationTest < ActionDispatch::IntegrationTest
 
     status_being_created = assigns(:status)
 
-    assert_select 'div#error_explanation' do
-      assert_select 'ul' do
-        status_being_created.errors.full_messages.each do |m|
-          assert_select 'li', m
-        end
-      end
+    assert_select '#message_container .invalid-feedback' do
+      status_being_created.errors.full_messages_for :message
     end
   end
 end

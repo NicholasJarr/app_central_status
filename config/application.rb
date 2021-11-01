@@ -18,5 +18,10 @@ module AppCentralStatus
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # remove field_with_error wrapper so bootstrap form styling can work
+    ActionView::Base.field_error_proc = proc do |html_tag|
+      html_tag
+    end
   end
 end

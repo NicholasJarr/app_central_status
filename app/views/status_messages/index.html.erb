@@ -1,16 +1,19 @@
 <% if @statuses.size > 0 %>
-  <section id="last_status">
-    <img alt="status_image" />
-    <p><%= @statuses.first.message  %></p>
-    <sub><%= @statuses.first.created_at.strftime('%Y/%m/%d - %H:%M:%S')  %></sub>
+  <section id="last_status" class="d-flex flex-column align-items-center">
+    <h3 class="text-<%= @statuses.first.up? ? 'success' : 'danger' %>">
+      <%= icon_for_status @statuses.first %>
+      <%= @statuses.first.message  %>
+    </h3>
+    <span class="fw-lighter"><%= @statuses.first.created_at.strftime('%Y/%m/%d - %H:%M:%S')  %></span>
     <%= link_to "Update status", new_status_message_path %>
   </section>
-  <section id="recent_status">
-    <ul>
+
+  <section id="recent_status" class="mt-3">
+    <ul class="list-group">
       <% @statuses[1..].each do |s| %>
-        <li id="<%= s.id %>">
-          <span><%= s.message %></span>
-          <sub><%= s.created_at.strftime('%Y/%m/%d - %H:%M:%S') %></sub>
+        <li id="<%= s.id %>" class="list-group-item d-flex flex-column text-white bg-<%= s.up? ? 'success' : 'danger' %>">
+          <span class="fw-bold"><%= s.message %></span>
+          <span class="fw-lighter"><%= s.created_at.strftime('%Y/%m/%d - %H:%M:%S') %></span>
         </li>
       <% end %>
     </ul>
