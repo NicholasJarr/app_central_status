@@ -2,7 +2,6 @@ require "test_helper"
 
 class StatusMessageCreationTest < ActionDispatch::IntegrationTest
   test 'new page should create a status if the params is valid, and redirect home with flash' do
-    # TODO: Use FactoryGirl
     StatusMessage.delete_all
 
     get new_status_message_path
