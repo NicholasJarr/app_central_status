@@ -43,3 +43,4 @@ bundle exec rails s
 - Add authentication and authorization for the editing page
 - Use FactoryGirl, or other gem, instead of fixtures for better control of test objects creation
 	- For example, in some tests I clear all status messages to test how the page handles that. It would be better to not create the objects in the first place.
+- Make controller actions respond to JSON requests so app can work as an API too.
