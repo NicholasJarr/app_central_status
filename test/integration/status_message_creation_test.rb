@@ -19,6 +19,9 @@ class StatusMessageCreationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert flash[:success]
+    assert_select '#alert_container' do
+      assert_select '.alert.alert-success', flash[:success]
+    end
 
     assert_select 'section#last_status' do
       assert_select 'h3', 'test'
