@@ -6,6 +6,7 @@ class StatusMessage < ApplicationRecord
     down: 1
   }
 
+  # Can't be greater than maximum
   validates :message,
             presence: true,
             length: { maximum: MESSAGE_MAXIMUM_LENGTH }
@@ -13,5 +14,6 @@ class StatusMessage < ApplicationRecord
   validates :status,
             presence: true
 
+  # Returns the most recent 6 items for displaying in the home page
   scope :recent, -> { order(created_at: :desc).limit(6) }
 end

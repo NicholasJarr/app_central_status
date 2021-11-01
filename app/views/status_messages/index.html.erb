@@ -1,4 +1,6 @@
 <% if @statuses.size > 0 %>
+  <% # Show last status as big banner, and previous status as a list %>
+
   <section id="last_status" class="d-flex flex-column align-items-center">
     <h3 class="text-<%= @statuses.first.up? ? 'success' : 'danger' %>">
       <%= icon_for_status @statuses.first %>
@@ -19,6 +21,8 @@
     </ul>
   </section>
 <% else %>
+  <% # Show message indicating there is no styles %>
+
   <section id="no_status" class="d-flex flex-column align-items-center">
     <h3 class="text-warning">
       <i class="no-status bi bi-exclamation-triangle-fill"></i>

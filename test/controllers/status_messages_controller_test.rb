@@ -37,7 +37,7 @@ class StatusMessagesControllerTest < ActionDispatch::IntegrationTest
     assert_select 'section#recent_status', count: 0
 
     assert_select 'section#no_status' do
-      assert_select "i.no-status"
+      assert_select 'i.no-status'
       assert_select 'h3'
       assert_select 'a[href=?]', new_status_message_path, 'Update status'
     end
